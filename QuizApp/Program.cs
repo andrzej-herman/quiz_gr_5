@@ -1,19 +1,16 @@
 ﻿using QuizApp.backend;
-Console.WriteLine(int.MaxValue);
-Console.WriteLine(long.MaxValue);
+using QuizApp.frontend;
+var game = new Game();
+game.CreateQuestions();
+Display.DisplayWelcome();
+var firstQuestion = game.DrawQuestion();
+
+var x = 1;
 
 
-// string
-// int
-// boolean
-// DateTime
 
-bool f = true; 
-DateTime data = DateTime.Now;
-Console.WriteLine(data);
+
+
+
+
 Console.ReadLine();
-
-
-
-
-
