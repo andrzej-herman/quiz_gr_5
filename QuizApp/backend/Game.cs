@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,63 +11,81 @@ namespace QuizApp.backend
     {
         public List<Question> Questions { get; set; }
         public int CurrentCategory { get; set; } = 100;
+        public Question CurrentQuestion { get; set; }
 
         public void CreateQuestions()
         {
+            // pytania z pliku json
             Questions = new List<Question>();
-
-            // dwa sposoby
-
-            //var q1 = new Question();
-            //q1.Content = "Jak miał na imię Eintein?";
-            //q1.Category = 100;
-            //q1.Answer_01 = "Albert";
-            //q1.Answer_02 = "Adam";
-            //q1.Answer_03 = "John";
-            //q1.Answer_04 = "Tom";
-
             var q1 = new Question
             {
                 Content = "Jak miał na imię Eintein?",
-                Category = 100,
-                Answer_01 = "Albert",
-                Answer_02 = "Adam",
-                Answer_03 = "John",
-                Answer_04 = "Tom"
+                Category = 100
             };
 
-            Questions.Add(q1);
+            var a1 = new Answer();
+            a1.Id = 1;
+            a1.Content = "Albert";
+            a1.IsCorrect = true;
+            q1.Answers.Add(a1);
+
+            var a2 = new Answer();
+            a2.Id = 2;
+            a2.Content = "Adam";
+            q1.Answers.Add(a2);
+
+            var a3 = new Answer();
+            a3.Id = 3;
+            a3.Content = "Tom";
+            q1.Answers.Add(a3);
+
+            var a4 = new Answer();
+            a4.Id = 4;
+            a4.Content = "John";
+            q1.Answers.Add(a4);
+
 
             var q2 = new Question
             {
                 Content = "Jaka jest stolica Polski?",
-                Category = 200,
-                Answer_01 = "Warszawa",
-                Answer_02 = "Łódź",
-                Answer_03 = "Kraków",
-                Answer_04 = "Toruń"
+                Category = 200
             };
+
+            var a5 = new Answer();
+            a5.Id = 1;
+            a5.Content = "Warszawa";
+            a5.IsCorrect = true;
+            q2.Answers.Add(a5);
+
+            var a6 = new Answer();
+            a6.Id = 2;
+            a6.Content = "Łódź";
+            q2.Answers.Add(a6);
+
+            var a7 = new Answer();
+            a7.Id = 3;
+            a7.Content = "Poznań";
+            q2.Answers.Add(a7);
+
+            var a8 = new Answer();
+            a8.Id = 4;
+            a8.Content = "Toruń";
+            q2.Answers.Add(a8);
 
             Questions.Add(q2);
 
-            var q3 = new Question
-            {
-                Content = "Jaka jest odległość Ziemi od Księżyca?",
-                Category = 300,
-                Answer_01 = "4678989",
-                Answer_02 = "2678000",
-                Answer_03 = "6700",
-                Answer_04 = "384000"
-            };
-
-            Questions.Add(q3);
-
-
         }
 
-        public Question DrawQuestion()
+        public void DrawQuestion()
         {
-            return Questions[0];
+            // prawdziwe losowanie pytania
+           CurrentQuestion = Questions[0];
+        }
+
+        public bool IsAnswerCorrect(int playerAnswerId)
+        {
+            var playerAnswer = CurrentQuestion.Answers.FirstOrDefault(x => x.Id == playerAnswerId);
+            return playerAnswer.IsCorrect;
         }
 
     }
