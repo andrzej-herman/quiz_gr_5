@@ -1,19 +1,33 @@
 ﻿using QuizApp.backend;
 using QuizApp.frontend;
 var game = new Game();
-game.CreateQuestions();
 Display.DisplayWelcome();
-game.DrawQuestion();
-var playerAnswerId = Display.DisplayQuestion(game.CurrentQuestion);
-// sprawdzanie czy dopowiedź jest prawidłowa
-if (game.IsAnswerCorrect(playerAnswerId))
+
+while (true)
 {
-    Console.WriteLine(" BRAWO !!!");
+    game.DrawQuestion();
+    var playerAnswerId = Display.DisplayQuestion(game.CurrentQuestion);
+    if (game.IsAnswerCorrect(playerAnswerId))
+    {
+        if (game.CheckIfLastQuestion())
+        {
+            Display.DisplaySuccess(game.PlayerPoints);
+            break;
+        }
+        else
+        {
+            Display.DisplayGoodAnswer(game.CurrentQuestion.Category);
+
+        }
+    }
+    else
+    {
+        Display.DisplayGameOver();
+        break;
+    }
 }
-else
-{
-    Console.WriteLine(" GAME OVER !!!");
-}
+
+
 
 
 
