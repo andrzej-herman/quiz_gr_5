@@ -1,11 +1,11 @@
-﻿using QuizApp.backend;
+﻿using Quiz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizApp.frontend
+namespace QuizApp
 {
     public static class Display
     {
@@ -20,7 +20,7 @@ namespace QuizApp.frontend
             Console.ReadLine();
         }
 
-        public static int DisplayQuestion(Question question)
+        public static int DisplayQuestionAndGetAnswer(Question question)
         {
             ShowQuestion(question);
             var userInput = Console.ReadLine();
@@ -30,7 +30,7 @@ namespace QuizApp.frontend
                 userInput = Console.ReadLine();
             }
 
-            return int.Parse(userInput); 
+            return int.Parse(userInput);
         }
 
 
@@ -58,10 +58,6 @@ namespace QuizApp.frontend
             var correctKeys = new List<string> { "1", "2", "3", "4" };
             return correctKeys.Contains(input);
         }
-
-
-
-
 
         public static void DisplayGameOver()
         {

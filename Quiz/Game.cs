@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizApp.backend
+namespace Quiz
 {
     public class Game
     {
@@ -14,9 +12,8 @@ namespace QuizApp.backend
         {
             Random = new Random();
             CreateQuestions();
-            AllCategories = Questions.Select(x => x.Category).Distinct().ToList();
+            AllCategories = Questions.Select(x => x.Category).Distinct().OrderBy(x => x).ToList();
             CurrentCategory = AllCategories[CurrentCategoryIndex];
-
         }
 
 
@@ -49,7 +46,7 @@ namespace QuizApp.backend
         }
 
         public bool IsAnswerCorrect(int playerAnswerId)
-        {           
+        {
             var playerAnswer = CurrentQuestion.Answers.FirstOrDefault(x => x.DisplayOrder == playerAnswerId);
             var isCorrect = playerAnswer.IsCorrect;
             if (isCorrect)
@@ -57,7 +54,7 @@ namespace QuizApp.backend
                 PlayerPoints += CurrentQuestion.Category;
             }
 
-            return isCorrect; 
+            return isCorrect;
         }
 
         public bool CheckIfLastQuestion()

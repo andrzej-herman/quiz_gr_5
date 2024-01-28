@@ -1,12 +1,12 @@
-﻿using QuizApp.backend;
-using QuizApp.frontend;
+﻿using Quiz;
+using QuizApp;
 var game = new Game();
 Display.DisplayWelcome();
 
 while (true)
 {
     game.DrawQuestion();
-    var playerAnswerId = Display.DisplayQuestion(game.CurrentQuestion);
+    var playerAnswerId = Display.DisplayQuestionAndGetAnswer(game.CurrentQuestion);
     if (game.IsAnswerCorrect(playerAnswerId))
     {
         if (game.CheckIfLastQuestion())
@@ -17,7 +17,6 @@ while (true)
         else
         {
             Display.DisplayGoodAnswer(game.CurrentQuestion.Category);
-
         }
     }
     else
